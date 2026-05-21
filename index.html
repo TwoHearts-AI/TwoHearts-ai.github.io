@@ -1,676 +1,811 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TwoHearts_AI – Улучшите Ваши Отношения с Искусственным Интеллектом</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet" />
-    <!-- Font Awesome CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-        integrity="sha512-kFU5oTqKNtf3wXqRoeJDw8eUd6n2gH8B+9w6d1XVZ6BZVgppv0jHlHSZz4nGHw+FgLxWJYpS5+z5iWj1u1BGA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="TwoHearts_AI — MVP для анализа экспортированной переписки и подготовки структурированного отчета о коммуникации."
+    />
+    <title>TwoHearts_AI</title>
     <style>
-        /* Reset */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+      :root {
+        color-scheme: light;
+        --ink: #142033;
+        --muted: #5b6679;
+        --paper: #f7f2ea;
+        --surface: #fffaf2;
+        --line: #ded4c5;
+        --violet: #7d4cff;
+        --rose: #d9516f;
+        --teal: #087f8c;
+        --green: #497d49;
+        --shadow: 0 18px 48px rgba(20, 32, 51, 0.14);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family:
+          Inter,
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        color: var(--ink);
+        background: var(--paper);
+        line-height: 1.55;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      a:focus-visible,
+      button:focus-visible {
+        outline: 3px solid rgba(8, 127, 140, 0.45);
+        outline-offset: 4px;
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        background: rgba(255, 250, 242, 0.94);
+        border-bottom: 1px solid rgba(20, 32, 51, 0.1);
+        backdrop-filter: blur(18px);
+      }
+
+      .nav {
+        width: min(1160px, calc(100% - 32px));
+        min-height: 72px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+
+      .brand {
+        font-weight: 800;
+        letter-spacing: 0;
+        text-decoration: none;
+        white-space: nowrap;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .nav-links a {
+        display: inline-flex;
+        min-height: 40px;
+        align-items: center;
+        padding: 0 12px;
+        border-radius: 6px;
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .nav-links a:hover {
+        color: var(--ink);
+        background: rgba(20, 32, 51, 0.06);
+      }
+
+      .menu-button {
+        display: none;
+        width: 42px;
+        height: 42px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(20, 32, 51, 0.16);
+        border-radius: 6px;
+        background: transparent;
+        color: var(--ink);
+        cursor: pointer;
+      }
+
+      .menu-button span,
+      .menu-button span::before,
+      .menu-button span::after {
+        display: block;
+        width: 18px;
+        height: 2px;
+        border-radius: 2px;
+        background: currentColor;
+        content: "";
+      }
+
+      .menu-button span {
+        position: relative;
+      }
+
+      .menu-button span::before {
+        position: absolute;
+        top: -6px;
+      }
+
+      .menu-button span::after {
+        position: absolute;
+        top: 6px;
+      }
+
+      .hero {
+        min-height: auto;
+        display: grid;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        color: #fff;
+        background:
+          linear-gradient(
+            90deg,
+            rgba(8, 12, 22, 0.92) 0%,
+            rgba(20, 32, 51, 0.78) 48%,
+            rgba(20, 32, 51, 0.28) 100%
+          ),
+          url("./imgs/image.png") center / cover no-repeat;
+      }
+
+      .hero-inner {
+        width: min(1160px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: clamp(72px, 9vw, 116px) 0 clamp(58px, 8vw, 90px);
+      }
+
+      .eyebrow {
+        margin: 0 0 18px;
+        color: #f5c6d2;
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        max-width: 790px;
+        margin-bottom: 22px;
+        font-size: clamp(44px, 7vw, 92px);
+        line-height: 0.96;
+        letter-spacing: 0;
+      }
+
+      .hero-copy {
+        max-width: 650px;
+        margin-bottom: 28px;
+        color: rgba(255, 255, 255, 0.84);
+        font-size: clamp(18px, 2.2vw, 24px);
+      }
+
+      .hero-actions,
+      .section-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .button {
+        display: inline-flex;
+        min-height: 48px;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 0 18px;
+        border: 1px solid transparent;
+        border-radius: 6px;
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      .button.primary {
+        background: #fff;
+        color: var(--ink);
+      }
+
+      .button.secondary {
+        border-color: rgba(255, 255, 255, 0.38);
+        color: #fff;
+      }
+
+      .button.dark {
+        background: var(--ink);
+        color: #fff;
+      }
+
+      .button.light {
+        border-color: rgba(20, 32, 51, 0.18);
+        background: #fff;
+      }
+
+      main section {
+        padding: 76px 0;
+      }
+
+      .section-inner {
+        width: min(1160px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .section-kicker {
+        margin-bottom: 10px;
+        color: var(--teal);
+        font-size: 13px;
+        font-weight: 850;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      h2 {
+        max-width: 780px;
+        margin-bottom: 18px;
+        font-size: clamp(30px, 4vw, 50px);
+        line-height: 1.05;
+        letter-spacing: 0;
+      }
+
+      .section-lead {
+        max-width: 780px;
+        color: var(--muted);
+        font-size: 18px;
+      }
+
+      .grid {
+        display: grid;
+        gap: 18px;
+        margin-top: 34px;
+      }
+
+      .grid.three {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .grid.two {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .card {
+        min-height: 100%;
+        padding: 24px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--surface);
+        box-shadow: 0 10px 28px rgba(20, 32, 51, 0.06);
+      }
+
+      .card h3 {
+        margin-bottom: 10px;
+        font-size: 22px;
+        line-height: 1.2;
+      }
+
+      .card p {
+        margin-bottom: 0;
+        color: var(--muted);
+      }
+
+      .metric {
+        display: inline-flex;
+        min-width: 54px;
+        min-height: 36px;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 16px;
+        padding: 0 10px;
+        border-radius: 6px;
+        background: rgba(125, 76, 255, 0.12);
+        color: var(--violet);
+        font-weight: 850;
+      }
+
+      .band {
+        background: var(--ink);
+        color: #fff;
+      }
+
+      .band .section-kicker {
+        color: #94e0e6;
+      }
+
+      .band .section-lead,
+      .band .card p {
+        color: rgba(255, 255, 255, 0.74);
+      }
+
+      .band .card {
+        border-color: rgba(255, 255, 255, 0.16);
+        background: rgba(255, 255, 255, 0.06);
+        box-shadow: none;
+      }
+
+      .steps {
+        counter-reset: step;
+      }
+
+      .step {
+        position: relative;
+        padding-left: 74px;
+      }
+
+      .step::before {
+        counter-increment: step;
+        content: counter(step);
+        position: absolute;
+        left: 24px;
+        top: 24px;
+        width: 34px;
+        height: 34px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background: var(--teal);
+        color: #fff;
+        font-weight: 850;
+      }
+
+      .report-preview {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 360px;
+        gap: 28px;
+        align-items: center;
+      }
+
+      .score-panel {
+        padding: 28px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background:
+          radial-gradient(
+            circle at top left,
+            rgba(125, 76, 255, 0.2),
+            transparent 34%
+          ),
+          #fffaf2;
+        box-shadow: var(--shadow);
+      }
+
+      .score {
+        width: 184px;
+        height: 184px;
+        display: grid;
+        place-items: center;
+        margin: 0 auto 20px;
+        border-radius: 50%;
+        background: conic-gradient(
+          var(--rose) 0 78%,
+          rgba(20, 32, 51, 0.12) 78% 100%
+        );
+        color: #fff;
+        font-size: 44px;
+        font-weight: 900;
+      }
+
+      .score-panel ul {
+        margin: 0;
+        padding-left: 20px;
+        color: var(--muted);
+      }
+
+      .proof-list {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 34px;
+      }
+
+      .proof-item {
+        min-height: 122px;
+        padding: 16px;
+        border-radius: 8px;
+        background: #fff;
+        border: 1px solid var(--line);
+      }
+
+      .proof-item strong {
+        display: block;
+        margin-bottom: 6px;
+      }
+
+      .proof-item span {
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .notice {
+        border-top: 1px solid rgba(20, 32, 51, 0.12);
+        background: #eee3d4;
+      }
+
+      .notice .section-inner {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+      }
+
+      .notice h2 {
+        font-size: clamp(28px, 3vw, 40px);
+      }
+
+      .footer {
+        padding: 42px 0;
+        background: #0d1523;
+        color: rgba(255, 255, 255, 0.76);
+      }
+
+      .footer .section-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      .footer a {
+        color: #fff;
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      @media (max-width: 940px) {
+        .menu-button {
+          display: inline-flex;
         }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: #f9f9f9;
-            color: #1C2745;
-            line-height: 1.6;
+        .nav-links {
+          position: absolute;
+          left: 16px;
+          right: 16px;
+          top: 72px;
+          display: none;
+          flex-direction: column;
+          align-items: stretch;
+          padding: 12px;
+          border: 1px solid rgba(20, 32, 51, 0.12);
+          border-radius: 8px;
+          background: var(--surface);
+          box-shadow: var(--shadow);
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        .nav-links.open {
+          display: flex;
         }
 
-        /* Navbar */
-        .navbar {
-            background: #ffffff;
-            padding: 20px 0;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+        .nav-links a {
+          justify-content: flex-start;
         }
 
-        .navbar .logo {
-            font-size: 24px;
-            font-weight: 600;
-            color: #8F49EA;
-            text-decoration: none;
-        }
-
-        .navbar ul {
-            list-style: none;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-        }
-
-        .navbar ul li {
-            margin-left: 20px;
-        }
-
-        .navbar ul li a {
-            text-decoration: none;
-            color: #1C2745;
-            font-size: 16px;
-            transition: color 0.3s;
-        }
-
-        .navbar ul li a:hover {
-            color: #8F49EA;
-        }
-
-        /* Hamburger Menu */
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        .hamburger div {
-            width: 25px;
-            height: 3px;
-            background: #1C2745;
-            margin: 4px 0;
-            transition: all 0.3s;
-        }
-
-        @media (max-width: 768px) {
-            .navbar ul {
-                position: absolute;
-                top: 70px;
-                right: 20px;
-                background: #ffffff;
-                flex-direction: column;
-                width: 200px;
-                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-                display: none;
-            }
-
-            .navbar ul.active {
-                display: flex;
-            }
-
-            .navbar ul li {
-                margin: 15px 0;
-            }
-
-            .hamburger {
-                display: flex;
-            }
-        }
-
-        /* Hero Section */
         .hero {
-            background: url('./imgs/image.png') no-repeat center center/cover;
-            padding: 100px 0;
-            text-align: center;
-            color: #ffffff;
-            position: relative;
+          background:
+            linear-gradient(
+              180deg,
+              rgba(8, 12, 22, 0.94) 0%,
+              rgba(20, 32, 51, 0.76) 100%
+            ),
+            url("./imgs/image.png") center / cover no-repeat;
         }
 
-        .hero::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(4, 8, 19, 0.8);
+        .grid.three,
+        .grid.two,
+        .report-preview,
+        .notice .section-inner {
+          grid-template-columns: 1fr;
         }
 
-        .hero-content {
-            position: relative;
-            z-index: 1;
+        .proof-list {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 620px) {
+        .hero-inner {
+          padding: 46px 0 38px;
         }
 
-        .hero h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            font-weight: 600;
+        h1 {
+          font-size: 44px;
         }
 
-        .hero p {
-            font-size: 20px;
-            margin-bottom: 30px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+        .hero-copy {
+          font-size: 18px;
+          line-height: 1.36;
         }
 
-        .btn-primary {
-            padding: 15px 30px;
-            font-size: 18px;
-            color: #ffffff;
-            background: linear-gradient(135deg, #B143F6, #8749EB);
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: background 0.3s, transform 0.3s;
-            display: inline-block;
+        main section {
+          padding: 58px 0;
         }
 
-        .btn-primary:hover {
-            background: linear-gradient(135deg, #8749EB, #B143F6);
-            transform: scale(1.05);
+        .hero-actions,
+        .section-actions {
+          flex-direction: column;
         }
 
-        /* Features Section */
-        .features {
-            padding: 60px 0;
-            background: #ffffff;
+        .button {
+          width: 100%;
         }
 
-        .features h2 {
-            text-align: center;
-            font-size: 32px;
-            color: #8F49EA;
-            margin-bottom: 40px;
-            font-weight: 600;
+        .proof-list {
+          grid-template-columns: 1fr;
         }
 
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+        .footer .section-inner {
+          align-items: flex-start;
+          flex-direction: column;
         }
-
-        .feature-card {
-            background: #fefefe;
-            padding: 30px;
-            border-radius: 10px;
-            text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .feature-card i {
-            font-size: 60px;
-            color: #8F49EA;
-            margin-bottom: 20px;
-        }
-
-        .feature-card h3 {
-            font-size: 20px;
-            margin-bottom: 15px;
-            color: #1C2745;
-            font-weight: 600;
-        }
-
-        .feature-card p {
-            font-size: 16px;
-            color: #555555;
-        }
-
-        /* How It Works Section */
-        .how-it-works {
-            padding: 60px 0;
-            background: #f0f2f5;
-        }
-
-        .how-it-works h2 {
-            text-align: center;
-            font-size: 32px;
-            color: #8F49EA;
-            margin-bottom: 40px;
-            font-weight: 600;
-        }
-
-        .steps {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .step {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .step-number {
-            font-size: 24px;
-            font-weight: 600;
-            color: #8F49EA;
-            background: #e0e0e0;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .step-content h3 {
-            font-size: 20px;
-            color: #1C2745;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-
-        .step-content p {
-            font-size: 16px;
-            color: #555555;
-        }
-
-        /* Reports Section */
-        .reports {
-            padding: 60px 0;
-            background: #ffffff;
-        }
-
-        .reports h2 {
-            text-align: center;
-            font-size: 32px;
-            color: #8F49EA;
-            margin-bottom: 40px;
-            font-weight: 600;
-        }
-
-        #samples-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .sample-card {
-            background: #fefefe;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .sample-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-
-        .compatibility-circle {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            background: conic-gradient(#8F49EA 0% 85%, #e0e0e0 85% 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px auto;
-            position: relative;
-            transition: background 0.5s;
-        }
-
-        .compatibility-circle h2 {
-            font-size: 36px;
-            color: #ffffff;
-            position: absolute;
-            z-index: 1;
-        }
-
-        .compatibility-circle::after {
-            content: '';
-            position: absolute;
-            width: 80%;
-            height: 80%;
-            border-radius: 50%;
-            background: #ffffff;
-        }
-
-        .compatibility-circle h2 {
-            z-index: 2;
-        }
-
-        .sample-card h2 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1C2745;
-            font-weight: 600;
-        }
-
-        .sample-card p {
-            font-size: 16px;
-            color: #555555;
-            margin-bottom: 15px;
-        }
-
-        .sample-card a.view-btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background: #8F49EA;
-            color: #ffffff;
-            border-radius: 25px;
-            text-decoration: none;
-            transition: background 0.3s, transform 0.3s;
-        }
-
-        .sample-card a.view-btn:hover {
-            background: #6a30c1;
-            transform: scale(1.05);
-        }
-
-        /* Call to Action */
-        .cta {
-            padding: 60px 0;
-            background: #8F49EA;
-            text-align: center;
-            color: #ffffff;
-        }
-
-        .cta h2 {
-            font-size: 28px;
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-
-        .cta p {
-            font-size: 18px;
-            margin-bottom: 30px;
-        }
-
-        .btn-secondary {
-            padding: 15px 30px;
-            font-size: 18px;
-            color: #8F49EA;
-            background: #ffffff;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: background 0.3s, transform 0.3s, color 0.3s;
-            display: inline-block;
-            font-weight: 600;
-        }
-
-        .btn-secondary:hover {
-            background: #e0e0e0;
-            transform: scale(1.05);
-            color: #8F49EA;
-        }
-
-        /* Footer */
-        .footer {
-            background: #1C2745;
-            color: #ffffff;
-            padding: 40px 0;
-        }
-
-        .footer .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .footer p {
-            font-size: 16px;
-            text-align: center;
-        }
-
-        .footer a {
-            color: #8F49EA;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        /* Responsive */
-        @media (max-width: 992px) {
-            .steps {
-                flex-direction: column;
-            }
-        }
-
-        @media (max-width: 767px) {
-            .hero h1 {
-                font-size: 32px;
-            }
-
-            .hero p {
-                font-size: 16px;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .step {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .footer .container {
-                padding: 0 20px;
-            }
-
-            .compatibility-circle {
-                width: 120px;
-                height: 120px;
-            }
-
-            .compatibility-circle h2 {
-                font-size: 28px;
-            }
-        }
+      }
     </style>
-</head>
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav" aria-label="Основная навигация">
+        <a class="brand" href="#top">TwoHearts_AI</a>
+        <button
+          class="menu-button"
+          type="button"
+          aria-controls="nav-links"
+          aria-expanded="false"
+          aria-label="Открыть меню"
+        >
+          <span aria-hidden="true"></span>
+        </button>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="#product">Продукт</a></li>
+          <li><a href="#workflow">Сценарий</a></li>
+          <li><a href="#report">Демо-отчет</a></li>
+          <li><a href="#proof">Proof</a></li>
+          <li><a href="#limits">Границы</a></li>
+        </ul>
+      </nav>
+    </header>
 
-<body>
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="container">
-            <a href="#" class="logo">TwoHearts_AI</a>
-            <div class="hamburger" aria-label="Toggle navigation" tabindex="0">
-                <div></div>
-                <div></div>
-                <div></div>
+    <main id="top">
+      <section class="hero">
+        <div class="hero-inner">
+          <p class="eyebrow">MVP анализа коммуникации</p>
+          <h1>TwoHearts_AI</h1>
+          <p class="hero-copy">
+            Сервис принимает экспорт переписки и собирает структурированный
+            отчет о повторяющихся паттернах коммуникации. Это продукт для
+            саморефлексии, не диагноз и не терапия.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="https://t.me/twoheartsai_bot"
+              >Открыть Telegram-бота</a
+            >
+            <a class="button secondary" href="samples/demo-report.html"
+              >Посмотреть synthetic demo</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <section id="product">
+        <div class="section-inner">
+          <p class="section-kicker">Что уже собрано</p>
+          <h2>От загрузки чата до отчета с понятной структурой.</h2>
+          <p class="section-lead">
+            MVP включает Telegram bot/WebApp, backend API, worker-обработку,
+            RAG/LLM-модуль, object storage, контур обезличивания и статический
+            публичный сайт проекта.
+          </p>
+          <div class="grid three">
+            <article class="card">
+              <span class="metric">01</span>
+              <h3>Импорт переписки</h3>
+              <p>
+                Пользователь загружает экспорт чата через Telegram-сценарий;
+                сервис фиксирует прогресс обработки и готовит данные к анализу.
+              </p>
+            </article>
+            <article class="card">
+              <span class="metric">02</span>
+              <h3>Аналитический пайплайн</h3>
+              <p>
+                Backend и worker-контур обрабатывают JSON, запускают анализ и
+                собирают результат в формат отчета.
+              </p>
+            </article>
+            <article class="card">
+              <span class="metric">03</span>
+              <h3>Отчет для чтения</h3>
+              <p>
+                Итоговый материал показывает темы, тональность, повторяющиеся
+                конфликтные места и аккуратные практические наблюдения.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="workflow" class="band">
+        <div class="section-inner">
+          <p class="section-kicker">Пользовательский сценарий</p>
+          <h2>Три действия вместо длинной анкеты.</h2>
+          <p class="section-lead">
+            Сценарий сделан для mobile-first использования в Telegram: загрузить
+            файл, дождаться обработки, открыть отчет.
+          </p>
+          <div class="grid three steps">
+            <article class="card step">
+              <h3>Загрузить экспорт</h3>
+              <p>
+                Пользователь передает выгрузку переписки и видит, что файл
+                принят в обработку.
+              </p>
+            </article>
+            <article class="card step">
+              <h3>Дождаться анализа</h3>
+              <p>
+                Сервис проходит этапы обработки: прием, подготовка, анализ,
+                сборка результата.
+              </p>
+            </article>
+            <article class="card step">
+              <h3>Открыть отчет</h3>
+              <p>
+                Результат доступен как структурированный материал, который можно
+                прочитать без технических деталей.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="report">
+        <div class="section-inner report-preview">
+          <div>
+            <p class="section-kicker">Безопасный пример</p>
+            <h2>Демо-отчет использует синтетические данные.</h2>
+            <p class="section-lead">
+              Публичные sample pages не содержат сырой личной переписки. Для
+              демонстрации оставлен synthetic report с вымышленными сообщениями,
+              без контактов, usernames, телефонов и Telegram ID.
+            </p>
+            <div class="section-actions">
+              <a class="button dark" href="samples/demo-report.html"
+                >Открыть демо-отчет</a
+              >
+              <a class="button light" href="#limits"
+                >Смотреть границы обработки</a
+              >
             </div>
+          </div>
+          <aside class="score-panel" aria-label="Пример карточки отчета">
+            <div class="score">78%</div>
             <ul>
-                <li><a href="#features">Особенности</a></li>
-                <li><a href="#how-it-works">Как Это Работает</a></li>
-                <li><a href="#reports">Отчеты</a></li>
-                <li><a href="#contact">Контакты</a></li>
+              <li>ритм ответов стабильный;</li>
+              <li>есть повторяющиеся темы напряжения;</li>
+              <li>
+                рекомендации сформулированы как наблюдения, не как диагноз.
+              </li>
             </ul>
+          </aside>
         </div>
-    </nav>
+      </section>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container hero-content">
-            <h1>Улучшите Ваши Отношения с Помощью Искусственного Интеллекта</h1>
-            <p>TwoHearts_AI анализирует вашу переписку, чтобы помочь вам лучше понимать и укреплять ваши отношения.</p>
-            <a href="http://t.me/twoheartsai_bot" class="btn-primary" aria-label="Начать сейчас">Начать сейчас</a>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="features" class="features">
-        <div class="container">
-            <h2>Почему Выбирают TwoHearts_AI?</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <i class="fa-solid fa-flask"></i>
-                    <h3>Научный Подход</h3>
-                    <p>Разработано профессиональными психологами с использованием проверенных методик анализа личности.
-                    </p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-shield-alt"></i>
-                    <h3>Конфиденциальность</h3>
-                    <p>Вся обработка данных происходит локально, обеспечивая полную защиту вашей личной информации.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-robot"></i>
-                    <h3>Технологическое Превосходство</h3>
-                    <p>Используем передовые технологии искусственного интеллекта для точного анализа ваших отношений.
-                    </p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-mobile-alt"></i>
-                    <h3>Простота Использования</h3>
-                    <p>Легкая интеграция с Telegram и другими мессенджерами делает использование приложения удобным для
-                        всех.</p>
-                </div>
+      <section id="proof">
+        <div class="section-inner">
+          <p class="section-kicker">Доказательная база проекта</p>
+          <h2>Пять зон календарного плана закрыты отдельными артефактами.</h2>
+          <p class="section-lead">
+            Для отчетности подготовлены материалы по сайту, backend/API,
+            design/frontend, маркетинговому представлению и пользовательскому
+            интересу в обезличенном виде.
+          </p>
+          <div class="proof-list">
+            <div class="proof-item">
+              <strong>Сайт</strong
+              ><span>GitHub Pages и скриншоты главной страницы.</span>
             </div>
-        </div>
-    </section>
-
-    <!-- How It Works Section -->
-    <section id="how-it-works" class="how-it-works">
-        <div class="container">
-            <h2>Как Это Работает?</h2>
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <div class="step-content">
-                        <h3>Загрузите Переписку</h3>
-                        <p>Отправьте вашу переписку в наш Telegram-бот для анализа.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <div class="step-content">
-                        <h3>Анализируйте Переписку</h3>
-                        <p>Наш ИИ анализирует ваши сообщения, выявляя ключевые аспекты ваших отношений.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
-                        <h3>Получите Персонализированный Отчет</h3>
-                        <p>Получите детальный отчет с практическими рекомендациями для улучшения ваших отношений.</p>
-                    </div>
-                </div>
+            <div class="proof-item">
+              <strong>Backend</strong
+              ><span>API, worker, storage, RAG/LLM-контур.</span>
             </div>
-        </div>
-    </section>
-
-    <!-- Reports Section -->
-    <section id="reports" class="reports">
-        <div class="container">
-            <h2>Примеры Отчетов</h2>
-            <div id="samples-container" class="samples-grid">
-                <!-- Sample cards will be dynamically inserted here -->
+            <div class="proof-item">
+              <strong>Frontend</strong
+              ><span>Telegram WebApp и визуальные proof-скрины.</span>
             </div>
+            <div class="proof-item">
+              <strong>Privacy</strong
+              ><span
+                >Обезличивание, synthetic demo, отсутствие raw PII в публичных
+                примерах.</span
+              >
+            </div>
+            <div class="proof-item">
+              <strong>Маркетинг</strong
+              ><span
+                >Публичные источники, promo-визуалы и агрегированная
+                пользовательская сводка.</span
+              >
+            </div>
+          </div>
         </div>
-    </section>
+      </section>
 
-    <!-- Call to Action -->
-    <section class="cta">
-        <div class="container">
-            <h2>Начните Улучшать Свои Отношения Сегодня</h2>
-            <p>Присоединяйтесь к тысячам пользователей, которые уже воспользовались преимуществами TwoHearts_AI.</p>
-            <a href="http://t.me/twoheartsai_bot" class="btn-secondary" aria-label="Перейти в Telegram">Перейти в
-                Telegram</a>
+      <section id="limits" class="notice">
+        <div class="section-inner">
+          <div>
+            <p class="section-kicker">Границы</p>
+            <h2>TwoHearts_AI не заменяет специалиста.</h2>
+            <p>
+              Сервис предназначен для анализа коммуникации и саморефлексии. Он
+              не ставит диагноз, не оказывает медицинскую, психологическую,
+              юридическую или терапевтическую услугу и не должен использоваться
+              для критических решений без человека.
+            </p>
+          </div>
+          <div>
+            <p class="section-kicker">Данные</p>
+            <h2>Публичный контур отделен от пользовательских данных.</h2>
+            <p>
+              Рабочий MVP использует backend-обработку и object storage для
+              загружаемых файлов. Публичные страницы и отчетные proof-материалы
+              должны содержать только обезличенные агрегаты, synthetic demo и
+              визуальные скриншоты без raw-чата.
+            </p>
+          </div>
         </div>
-    </section>
+      </section>
+    </main>
 
-    <!-- Footer -->
-    <footer id="contact" class="footer">
-        <div class="container">
-            <p>&copy; 2024 TwoHearts_AI. Все права защищены.</p>
-            <p>Свяжитесь с нами: <a href="mailto:support@twoheartsai.com">support@twoheartsai.com</a></p>
-        </div>
+    <footer class="footer">
+      <div class="section-inner">
+        <p>© 2026 TwoHearts_AI</p>
+        <p>
+          <a href="mailto:support@twoheartsai.com">support@twoheartsai.com</a>
+        </p>
+      </div>
     </footer>
 
-    <!-- Scripts -->
     <script>
-        // Hamburger Menu Toggle
-        const hamburger = document.querySelector('.hamburger');
-        const navLinks = document.querySelector('.navbar ul');
+      const menuButton = document.querySelector(".menu-button");
+      const navLinks = document.querySelector("#nav-links");
 
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
+      menuButton.addEventListener("click", () => {
+        const isOpen = navLinks.classList.toggle("open");
+        menuButton.setAttribute("aria-expanded", String(isOpen));
+        menuButton.setAttribute(
+          "aria-label",
+          isOpen ? "Закрыть меню" : "Открыть меню",
+        );
+      });
 
-        hamburger.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                navLinks.classList.toggle('active');
-            }
-        });
-
-        // Smooth scrolling for navbar links
-        document.querySelectorAll('.navbar ul li a').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href').substring(1);
-                const targetSection = document.getElementById(targetId);
-                if (targetSection) {
-                    window.scrollTo({
-                        top: targetSection.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-                // Close the navbar on mobile after clicking
-                if (navLinks.classList.contains('active')) {
-                    navLinks.classList.remove('active');
-                }
-            });
-        });
-
-        // Function to load and display sample reports
-        async function loadSamples() {
-            const samplesContainer = document.getElementById('samples-container');
-
-            // List of sample files
-            const samples = [
-                { id: 'paid_template', score: '88%', isPaid: true },
-                { id: '20', score: '50%' },
-                { id: '21', score: '85%' },
-                { id: '22', score: '80%' },
-                { id: '23', score: '75%' },
-                { id: '24', score: '85%' }
-            ];
-
-            samples.forEach(sample => {
-                const card = document.createElement('div');
-                card.className = 'sample-card';
-
-                if (sample.isPaid) {
-                    card.innerHTML = `
-                        <div class="compatibility-circle" style="background: conic-gradient(gold 0% ${parseInt(sample.score)}, #e0e0e0 ${parseInt(sample.score)}% 100%);">
-                            <h2>${sample.score}</h2>
-                        </div>
-                        <h2>💎 Платная версия</h2>
-                        <p>Подробный анализ коммуникации c рекомендациями</p>
-                        <a href="samples/paid_template.html" class="view-btn" aria-label="Посмотреть платный анализ">Посмотреть платный анализ</a>
-                    `;
-                } else {
-                    const link = sample.link ? sample.link : `samples/analysis_${sample.id}.html`;
-                    card.innerHTML = `
-                        <div class="compatibility-circle" style="background: conic-gradient(#8F49EA 0% ${parseInt(sample.score)}%, #e0e0e0 ${parseInt(sample.score)}% 100%);">
-                            <h2>${sample.score}</h2>
-                        </div>
-                        <h2>Анализ #${sample.id}</h2>
-                        <p>Подробный анализ коммуникации с рекомендациями</p>
-                        <a href="${link}" class="view-btn" aria-label="Посмотреть анализ">Посмотреть анализ</a>
-                    `;
-                }
-
-                samplesContainer.appendChild(card);
-            });
+      navLinks.addEventListener("click", (event) => {
+        if (event.target instanceof HTMLAnchorElement) {
+          navLinks.classList.remove("open");
+          menuButton.setAttribute("aria-expanded", "false");
+          menuButton.setAttribute("aria-label", "Открыть меню");
         }
+      });
 
-        // Load samples when page loads
-        window.addEventListener('load', loadSamples);
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          navLinks.classList.remove("open");
+          menuButton.setAttribute("aria-expanded", "false");
+          menuButton.setAttribute("aria-label", "Открыть меню");
+        }
+      });
     </script>
-</body>
-
+  </body>
 </html>
