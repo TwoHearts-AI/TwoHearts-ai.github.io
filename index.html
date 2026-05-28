@@ -433,6 +433,34 @@
         font-size: 14px;
       }
 
+      .grant-support {
+        background: #fffaf2;
+        border-top: 1px solid rgba(20, 32, 51, 0.1);
+      }
+
+      .support-panel {
+        display: grid;
+        grid-template-columns: 230px minmax(0, 1fr);
+        gap: 32px;
+        align-items: center;
+        padding: 30px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+        box-shadow: 0 12px 32px rgba(20, 32, 51, 0.08);
+      }
+
+      .support-panel img {
+        width: 100%;
+        max-width: 230px;
+        height: auto;
+        display: block;
+      }
+
+      .support-panel p:last-child {
+        margin-bottom: 0;
+      }
+
       .notice {
         border-top: 1px solid rgba(20, 32, 51, 0.12);
         background: #eee3d4;
@@ -508,6 +536,7 @@
         .grid.three,
         .grid.two,
         .report-preview,
+        .support-panel,
         .notice .section-inner {
           grid-template-columns: 1fr;
         }
@@ -739,6 +768,29 @@
                 пользовательская сводка.</span
               >
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="grant-support" aria-labelledby="grant-support-title">
+        <div class="section-inner support-panel">
+          <img
+            src="./imgs/fasie-logo.png"
+            alt="Фонд содействия инновациям"
+            width="376"
+            height="211"
+          />
+          <div>
+            <p class="section-kicker">Поддержка проекта</p>
+            <h2 id="grant-support-title">Программа “Студенческий стартап”.</h2>
+            <p
+              class="section-lead"
+              data-support-text='Проект выполнен при поддержке «Фонда содействия инновациям» в рамках программы "Студенческий стартап" федерального проекта «Платформа университетского технологического предпринимательства».'
+            >
+              Проект выполнен при поддержке «Фонда содействия инновациям» в
+              рамках программы "Студенческий стартап" федерального проекта
+              «Платформа университетского технологического предпринимательства».
+            </p>
           </div>
         </div>
       </section>
