@@ -6,107 +6,119 @@
     <meta name="robots" content="index, follow" />
     <meta
       name="description"
-      content="Синтетический демо-отчет TwoHearts_AI без сырой пользовательской переписки и PII."
+      content="Синтетический демо-отчет TwoHearts_AI на встроенном сценарии без пользовательских данных."
     />
-    <title>TwoHearts_AI — synthetic demo report</title>
+    <title>TwoHearts_AI — синтетический демо-отчет</title>
     <link rel="stylesheet" href="../css/demo-report.css" />
   </head>
   <body>
     <header class="topbar">
       <div class="topbar-inner">
-        <a class="brand" href="../index.html">TwoHearts_AI</a>
-        <a class="back-link" href="../index.html#report">Назад к сайту</a>
+        <a class="brand" href="../">TwoHearts_AI</a>
+        <a class="back-link" href="../#report">Назад к сайту</a>
       </div>
     </header>
 
     <main class="page">
-      <section class="hero">
-        <div>
-          <p class="kicker">Синтетический пример</p>
-          <h1>Демо-отчет о коммуникации</h1>
+      <section class="hero" aria-labelledby="report-title">
+        <div class="hero-copy">
+          <p class="kicker">Встроенный синтетический сценарий</p>
+          <h1 id="report-title">Демо-отчет о коммуникации</h1>
           <p class="lead">
-            Этот файл показывает формат результата на вымышленных сообщениях. Он
-            не содержит реальной переписки, имен, контактов, usernames,
-            телефонов, Telegram ID или иных персональных данных.
+            Публичное демо принимает только этот встроенный сценарий и ничего не
+            сохраняет. Реальные и произвольные данные не принимаются.
           </p>
         </div>
-        <aside class="score" aria-label="Индекс коммуникации">
-          <div class="score-ring">78%</div>
-        </aside>
+
+        <div
+          class="message-sequence"
+          aria-label="Две реплики встроенного синтетического диалога"
+        >
+          <article class="message">
+            <div class="message-meta">
+              <strong>Алексей</strong>
+              <time datetime="09:41">09:41</time>
+            </div>
+            <p>Мне нужно немного времени, чтобы разобраться в себе.</p>
+          </article>
+          <article class="message reply">
+            <div class="message-meta">
+              <strong>Мария</strong>
+              <time datetime="09:42">09:42</time>
+            </div>
+            <p>Понимаю. Я рядом, когда ты будешь готов поговорить.</p>
+          </article>
+        </div>
       </section>
 
-      <section class="grid">
-        <article class="card">
-          <h2>Краткое резюме</h2>
-          <p>
-            В демонстрационном чате участники обычно отвечают в течение одного
-            дня, прямо называют бытовые планы и поддерживают доброжелательный
-            тон. Напряжение появляется, когда один участник ожидает быстрого
-            решения, а второй отвечает позже и без явного подтверждения.
-          </p>
-        </article>
-
-        <article class="card">
-          <h2>Сильные стороны</h2>
-          <ul>
-            <li>просьбы чаще формулируются без обвинений;</li>
-            <li>есть прямые сигналы благодарности;</li>
-            <li>
-              после спора участники возвращаются к предметному обсуждению.
-            </li>
-          </ul>
-        </article>
-
-        <article class="card">
-          <h2>Зоны напряжения</h2>
-          <p>
-            Главный повторяющийся паттерн — неопределенность по времени ответа.
-            Один участник пишет коротко и ожидает подтверждения, второй отвечает
-            позже и воспринимает повторные сообщения как давление.
-          </p>
-          <div class="quote">
+      <section class="report" aria-label="Структура синтетического отчета">
+        <article class="report-section">
+          <span class="section-number" aria-hidden="true">01</span>
+          <div>
+            <h2>Краткое резюме</h2>
             <p>
-              <strong>Участник А:</strong> “давай решим сегодня, чтобы завтра не
-              зависло”
-            </p>
-            <p>
-              <strong>Участник Б:</strong> “я отвечу вечером, сейчас не могу
-              нормально подумать”
+              В демонстрационном диалоге один собеседник прямо просит паузу, а
+              второй признаёт эту границу и оставляет возможность вернуться к
+              теме.
             </p>
           </div>
         </article>
 
-        <article class="card">
-          <h2>Практические наблюдения</h2>
-          <ul>
-            <li>для срочных тем полезно явно писать срок ответа;</li>
-            <li>
-              если нужен не ответ, а только подтверждение получения, это стоит
-              назвать;
-            </li>
-            <li>
-              эмоциональные выводы лучше отделять от фактической договоренности.
-            </li>
-          </ul>
+        <article class="report-section">
+          <span class="section-number" aria-hidden="true">02</span>
+          <div>
+            <h2>Что поддерживает диалог</h2>
+            <ul>
+              <li>Просьба о времени сформулирована без обвинения.</li>
+              <li>Ответ подтверждает готовность продолжить разговор позже.</li>
+            </ul>
+          </div>
         </article>
 
-        <article class="card wide notice">
-          <h2>Граница интерпретации</h2>
-          <p>
-            TwoHearts_AI готовит структурированный материал для саморефлексии.
-            Такой отчет не является диагнозом, терапией, медицинской,
-            психологической или юридической консультацией. В реальном продукте
-            пользовательские файлы проходят backend-обработку; публичные
-            демонстрации должны оставаться синтетическими или обезличенными.
-          </p>
+        <article class="report-section">
+          <span class="section-number" aria-hidden="true">03</span>
+          <div>
+            <h2>На что обратить внимание</h2>
+            <ul>
+              <li>
+                В переписке пока не обозначено, когда и как собеседники вернутся
+                к разговору.
+              </li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="report-section">
+          <span class="section-number" aria-hidden="true">04</span>
+          <div>
+            <h2>Практика для следующего разговора</h2>
+            <ol>
+              <li>
+                Назвать удобный ориентир: «Давай вернёмся к этому завтра
+                вечером?»
+              </li>
+              <li>
+                Перед продолжением спросить, готов ли второй собеседник сейчас
+                говорить.
+              </li>
+            </ol>
+          </div>
         </article>
       </section>
+
+      <aside class="boundary" aria-labelledby="boundary-title">
+        <h2 id="boundary-title">Граница демонстрации</h2>
+        <p>
+          Это демонстрация структуры отчета на вымышленных сообщениях, а не
+          оценка людей или отношений.
+        </p>
+      </aside>
     </main>
 
     <footer class="footer">
       <div class="footer-inner">
         <p>© 2026 TwoHearts_AI</p>
-        <a href="mailto:support@twoheartsai.com">support@twoheartsai.com</a>
+        <a href="https://t.me/twoheartsai_bot">Telegram-бот TwoHearts_AI</a>
       </div>
     </footer>
   </body>
