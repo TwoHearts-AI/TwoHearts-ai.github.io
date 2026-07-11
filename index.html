@@ -450,7 +450,16 @@
         box-shadow: 0 12px 32px rgba(20, 32, 51, 0.08);
       }
 
-      .support-panel img {
+      .support-logos {
+        display: grid;
+        gap: 18px;
+      }
+
+      .support-logos a {
+        display: block;
+      }
+
+      .support-logos img {
         width: 100%;
         max-width: 230px;
         height: auto;
@@ -774,12 +783,24 @@
 
       <section class="grant-support" aria-labelledby="grant-support-title">
         <div class="section-inner support-panel">
-          <img
-            src="./imgs/fasie-logo.png"
-            alt="Фонд содействия инновациям"
-            width="376"
-            height="211"
-          />
+          <div class="support-logos" aria-label="Организации поддержки проекта">
+            <a href="https://fasie.ru/" rel="noopener noreferrer">
+              <img
+                src="./imgs/fasie-logo.png"
+                alt="Фонд содействия инновациям"
+                width="376"
+                height="211"
+              />
+            </a>
+            <a href="https://univertechpred.ru/" rel="noopener noreferrer">
+              <img
+                src="./imgs/univertechpred-logo.png"
+                alt="Платформа университетского технологического предпринимательства"
+                width="617"
+                height="324"
+              />
+            </a>
+          </div>
           <div>
             <p class="section-kicker">Поддержка проекта</p>
             <h2 id="grant-support-title">Программа “Студенческий стартап”.</h2>
