@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="TwoHearts_AI превращает экспорт переписки в структурированный отчет о повторяющихся паттернах коммуникации. Публичное демо использует только синтетические данные."
+      content="TwoHearts_AI превращает Telegram JSON в структурированный отчет о наблюдаемых паттернах коммуникации. Файл обрабатывается локально в браузере."
     />
     <link rel="canonical" href="https://twohearts-ai-site.pages.dev/" />
     <meta property="og:type" content="website" />
@@ -17,7 +17,7 @@
     />
     <meta
       property="og:description"
-      content="Структурированный отчет о повторяющихся паттернах коммуникации. Безопасное демо работает только на синтетических данных."
+      content="Структурированный отчет о наблюдаемых паттернах коммуникации. Telegram JSON обрабатывается локально в браузере."
     />
     <meta property="og:url" content="https://twohearts-ai-site.pages.dev/" />
     <meta
@@ -28,7 +28,7 @@
     <meta property="og:image:height" content="630" />
     <meta
       property="og:image:alt"
-      content="TwoHearts_AI — разговор становится понятнее. Безопасное демо использует только синтетические данные."
+      content="TwoHearts_AI — разговор становится понятнее. Telegram JSON обрабатывается локально в браузере."
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta
@@ -37,7 +37,7 @@
     />
     <meta
       name="twitter:description"
-      content="Структурированный отчет о повторяющихся паттернах коммуникации. Безопасное демо работает только на синтетических данных."
+      content="Структурированный отчет о наблюдаемых паттернах коммуникации. Telegram JSON обрабатывается локально в браузере."
     />
     <meta
       name="twitter:image"
@@ -986,7 +986,7 @@
           <li><a href="#support">О проекте</a></li>
           <li>
             <a href="https://twohearts-ai-demo.baltsat.workers.dev"
-              >Безопасное демо</a
+              >Открыть приложение</a
             >
           </li>
         </ul>
@@ -994,7 +994,7 @@
           class="nav-demo"
           href="https://twohearts-ai-demo.baltsat.workers.dev"
           rel="noopener noreferrer"
-          >Открыть безопасное демо</a
+          >Открыть приложение</a
         >
       </nav>
     </header>
@@ -1007,15 +1007,15 @@
           </h1>
           <p class="hero-copy">
             TwoHearts_AI превращает экспорт переписки в структурированный отчет
-            для саморефлексии. Публичное демо работает только на синтетических
-            данных. Без диагнозов и терапевтических обещаний.
+            для саморефлексии. JSON обрабатывается локально в браузере и не
+            загружается на сервер. Без диагнозов и терапевтических обещаний.
           </p>
           <div class="hero-actions">
             <a
               class="button primary"
               href="https://twohearts-ai-demo.baltsat.workers.dev"
               rel="noopener noreferrer"
-              >Открыть безопасное демо</a
+              >Открыть приложение</a
             >
             <a class="button secondary" href="samples/demo-report.html"
               >Посмотреть пример отчета</a
@@ -1065,8 +1065,8 @@
             <div>
               <h2>Передать экспорт</h2>
               <p>
-                Поддерживается текстовая выгрузка переписки. В публичном демо
-                используются только заранее подготовленные сценарии.
+                Экспортируйте личный чат из Telegram Desktop в формате JSON без
+                медиа и выберите файл result.json в приложении.
               </p>
             </div>
           </article>
@@ -1167,11 +1167,11 @@
               </h2>
               <p class="section-copy">
                 Публичные поверхности проекта доступны для независимой проверки.
-                Ссылки ведут к работающему сайту, безопасному демо на
-                синтетических данных, проверке состояния API, Telegram-сценарию,
-                синтетическому отчету и исходному коду сайта. Полный
-                обезличенный срез исходного кода передается в отчетном пакете
-                без публичной ссылки.
+                Ссылки ведут к работающему сайту, приложению с локальным
+                импортом Telegram JSON, проверке доступности сервиса,
+                Telegram-сценарию, синтетическому отчету и исходному коду сайта.
+                Реестр происхождения основной кодовой базы передается в отчетном
+                пакете.
               </p>
             </div>
             <div class="evidence-list" aria-label="Проверяемые материалы">
@@ -1183,7 +1183,7 @@
               </div>
               <div class="evidence-row">
                 <span>02</span>
-                <strong>Synthetic-only web-app</strong>
+                <strong>Приложение анализа переписки</strong>
                 <span class="evidence-status">доступно для проверки</span>
                 <a href="https://twohearts-ai-demo.baltsat.workers.dev"
                   >Открыть</a
@@ -1191,7 +1191,7 @@
               </div>
               <div class="evidence-row">
                 <span>03</span>
-                <strong>Проверка доступности API</strong>
+                <strong>Проверка доступности сервиса</strong>
                 <span class="evidence-status">доступно для проверки</span>
                 <a
                   href="https://twohearts-ai-demo.baltsat.workers.dev/api/v1/health"
@@ -1233,18 +1233,19 @@
           <div class="privacy-layout">
             <div>
               <h2 class="section-title" id="privacy-title">
-                Публичное демо работает только на синтетических данных.
+                Переписка обрабатывается локально в браузере.
               </h2>
               <p class="section-copy">
-                В демонстрационном режиме нет импорта реальной переписки,
-                контактов, имен пользователей, телефонов или Telegram ID. Сервис
-                показывает структуру коммуникации и не оценивает людей.
+                Выбранный Telegram JSON не загружается на сервер и удаляется из
+                памяти после закрытия страницы. Для публичных примеров
+                используются только вымышленные сообщения. Сервис показывает
+                наблюдаемые паттерны текста и не оценивает людей.
               </p>
             </div>
             <div class="privacy-principles">
               <div class="privacy-principle">
                 <strong>Данные</strong>
-                <span>Только заранее подготовленные вымышленные сценарии.</span>
+                <span>Пользовательский файл остается в браузере.</span>
               </div>
               <div class="privacy-principle">
                 <strong>Границы</strong>
