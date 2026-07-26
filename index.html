@@ -475,8 +475,16 @@
 
       .report-layout {
         display: grid;
-        grid-template-columns: minmax(280px, 0.55fr) minmax(0, 1.45fr);
-        gap: clamp(46px, 7vw, 110px);
+        grid-template-columns: minmax(400px, 0.85fr) minmax(0, 1.15fr);
+        gap: clamp(32px, 4vw, 64px);
+      }
+
+      .report-layout > * {
+        min-width: 0;
+      }
+
+      .report-layout .section-title {
+        font-size: clamp(38px, 3.2vw, 46px);
       }
 
       .section-title {
@@ -897,6 +905,11 @@
           font-size: 38px;
         }
 
+        .report-layout .section-title {
+          overflow-wrap: anywhere;
+          font-size: 34px;
+        }
+
         .report-row {
           grid-template-columns: 1fr;
           padding: 17px 0;
@@ -985,14 +998,14 @@
           <li><a href="#evidence">Доказательства</a></li>
           <li><a href="#support">О проекте</a></li>
           <li>
-            <a href="https://twohearts-ai-demo.baltsat.workers.dev"
+            <a href="https://twohearts-ai.baltsat.workers.dev/"
               >Открыть приложение</a
             >
           </li>
         </ul>
         <a
           class="nav-demo"
-          href="https://twohearts-ai-demo.baltsat.workers.dev"
+          href="https://twohearts-ai.baltsat.workers.dev/"
           rel="noopener noreferrer"
           >Открыть приложение</a
         >
@@ -1013,11 +1026,11 @@
           <div class="hero-actions">
             <a
               class="button primary"
-              href="https://twohearts-ai-demo.baltsat.workers.dev"
+              href="https://twohearts-ai.baltsat.workers.dev/"
               rel="noopener noreferrer"
               >Открыть приложение</a
             >
-            <a class="button secondary" href="samples/demo-report.html"
+            <a class="button secondary" href="/sample-report"
               >Посмотреть пример отчета</a
             >
           </div>
@@ -1111,7 +1124,7 @@
                 решает, что с этим делать.
               </p>
               <div class="report-actions">
-                <a class="button primary" href="samples/demo-report.html"
+                <a class="button primary" href="/sample-report"
                   >Открыть полный пример</a
                 >
               </div>
@@ -1168,7 +1181,7 @@
               <p class="section-copy">
                 Публичные поверхности проекта доступны для независимой проверки.
                 Ссылки ведут к работающему сайту, приложению с локальным
-                импортом Telegram JSON, проверке доступности сервиса,
+                импортом Telegram JSON, локальной архитектуре обработки,
                 Telegram-сценарию, синтетическому отчету и исходному коду сайта.
                 Реестр происхождения основной кодовой базы передается в отчетном
                 пакете.
@@ -1185,18 +1198,13 @@
                 <span>02</span>
                 <strong>Приложение анализа переписки</strong>
                 <span class="evidence-status">доступно для проверки</span>
-                <a href="https://twohearts-ai-demo.baltsat.workers.dev"
-                  >Открыть</a
-                >
+                <a href="https://twohearts-ai.baltsat.workers.dev/">Открыть</a>
               </div>
               <div class="evidence-row">
                 <span>03</span>
-                <strong>Проверка доступности сервиса</strong>
+                <strong>Локальная архитектура обработки</strong>
                 <span class="evidence-status">доступно для проверки</span>
-                <a
-                  href="https://twohearts-ai-demo.baltsat.workers.dev/api/v1/health"
-                  >Открыть</a
-                >
+                <a href="https://twohearts-ai.baltsat.workers.dev/">Открыть</a>
               </div>
               <div class="evidence-row">
                 <span>04</span>
@@ -1208,7 +1216,7 @@
                 <span>05</span>
                 <strong>Синтетический отчет</strong>
                 <span class="evidence-status">доступно для проверки</span>
-                <a href="samples/demo-report.html">Открыть</a>
+                <a href="/sample-report">Открыть</a>
               </div>
               <div class="evidence-row">
                 <span>06</span>
