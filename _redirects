@@ -1,2 +1,2 @@
-/sample-report /samples/demo-report.html 200
-/sample-report/ /samples/demo-report.html 200
+/samples/demo-report /sample-report 301
+/samples/demo-report.html /sample-report 301
